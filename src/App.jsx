@@ -3,51 +3,51 @@ import { useState } from "react";
 let nodes = [
     {
         name: "Home",
-        folders: [
+        subNode: [
             {
                 name: "Movies",
-                folders: [
+                subNode: [
                     {
                         name: "Action",
-                        folders: [
+                        subNode: [
                             {
                                 name: "1993",
-                                folders: [
+                                subNode: [
                                     {
                                         name: "Popular",
-                                        folders: [{ name: "ActionMovieList.txt" }],
+                                        subNode: [{ name: "ActionMovieList.txt" }],
                                     },
                                 ],
                             },
                             {
                                 name: "2000s",
-                                folders: [
+                                subNode: [
                                     {
                                         name: "Popular",
-                                        folders: [{ name: "Popular2000sMovieList.txt" }],
+                                        subNode: [{ name: "Popular2000sMovieList.txt" }],
                                     },
                                 ],
                             },
                         ],
                     },
-                    { name: "Comedy", folders: [{ name: "ComedyMovieList.txt" }] },
+                    { name: "Comedy", subNode: [{ name: "ComedyMovieList.txt" }] },
                 ],
             },
             {
                 name: "Music",
-                folders: [
-                    { name: "Rock", folders: [{ name: "RockSongs.txt" }] },
+                subNode: [
+                    { name: "Rock", subNode: [{ name: "RockSongs.txt" }] },
                     {
                         name: "Classical",
-                        folders: [{ name: "ClassicalSongs.txt" }],
+                        subNode: [{ name: "ClassicalSongs.txt" }],
                     },
                 ],
             },
             {
                 name: "Empty Folder",
-                folders: [],
+                subNode: [],
             },
-            { name: "Documents", folders: [{ name: "passwords.txt" }] },
+            { name: "Documents", subNode: [{ name: "passwords.txt" }] },
         ],
     },
 ];
@@ -97,7 +97,7 @@ function FileSystemItem({ node }) {
     return (
         <li key={node.name}>
             <span>
-                {node.folders && node.folders.length > 0 && (
+                {node.subNode && node.subNode.length > 0 && (
                     <button
                         style={{ transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)" }}
                         onClick={() => setisOpen(!isOpen)}
@@ -105,8 +105,8 @@ function FileSystemItem({ node }) {
                         <ChevronIcon />
                     </button>
                 )}
-                {node.folders ? (
-                    <span style={{ marginLeft: node.folders.length === 0 ? "30px" : "" }}>
+                {node.subNode ? (
+                    <span style={{ marginLeft: node.subNode.length === 0 ? "30px" : "" }}>
                         <FolderIcon />
                     </span>
                 ) : (
@@ -119,7 +119,7 @@ function FileSystemItem({ node }) {
 
             {isOpen && (
                 <ul style={{ marginLeft: "60px" }}>
-                    {node.folders?.map((node) => (
+                    {node.subNode?.map((node) => (
                         <FileSystemItem node={node} key={node.name} />
                     ))}
                 </ul>
